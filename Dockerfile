@@ -157,6 +157,8 @@ RUN rm -rf \
  && ln -s ../mods-available/mime.conf etc/apache2/mods-enabled/mime.conf \
  && ln -s ../mods-available/mpm_event.load etc/apache2/mods-enabled/mpm_event.load \
  && ln -s ../mods-available/mpm_event.conf etc/apache2/mods-enabled/mpm_event.conf \
+ && ln -s ../mods-available/proxy.load etc/apache2/mods-enabled/proxy.load \
+ && ln -s ../mods-available/proxy_fcgi.load etc/apache2/mods-enabled/proxy_fcgi.load \
  && ln -s ../mods-available/ratelimit.load etc/apache2/mods-enabled/ratelimit.load \
  && ln -s ../mods-available/remoteip.load etc/apache2/mods-enabled/remoteip.load \
  && ln -s ../mods-available/reqtimeout.load etc/apache2/mods-enabled/reqtimeout.load \
