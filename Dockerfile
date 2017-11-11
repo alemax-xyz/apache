@@ -133,6 +133,7 @@ RUN rm -rf \
  && ln -s ../conf-available/security.conf etc/apache2/conf-enabled/security.conf \
  && ln -s ../conf-available/tuning.conf etc/apache2/conf-enabled/tuning.conf \
  && ln -s ../sites-available/000-default.conf etc/apache2/sites-enabled/000-default.conf \
+ && ln -s ../mods-available/access_compat.load etc/apache2/mods-enabled/access_compat.load \
  && ln -s ../mods-available/actions.load etc/apache2/mods-enabled/actions.load \
  && ln -s ../mods-available/alias.load etc/apache2/mods-enabled/alias.load \
  && ln -s ../mods-available/allowmethods.load etc/apache2/mods-enabled/allowmethods.load \
