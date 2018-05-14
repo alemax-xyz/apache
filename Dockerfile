@@ -13,14 +13,13 @@ RUN groupadd \
         --gid 50 \
         www
 
-FROM library/ubuntu:xenial AS build
+FROM library/ubuntu:bionic AS build
 
 ENV LANG=C.UTF-8
 
 RUN export DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
  && apt-get install -y \
-        python-software-properties \
         software-properties-common \
         apt-utils
 
@@ -38,7 +37,7 @@ RUN apt-get download \
         liblua5.1-0 \
         libxml2 \
         libuuid1 \
-        libicu55 \
+        libicu60 \
         liblzma5 \
         libexpat1 \
         libsqlite3-0 \
