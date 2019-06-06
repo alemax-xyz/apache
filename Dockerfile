@@ -120,13 +120,6 @@ RUN rm -rf \
         -e 's,[$][{]APACHE_RUN_USER[}],www,g' \
         -e 's,[$][{]APACHE_RUN_GROUP[}],www,g' \
         % \
- && find \
-        etc/ldap/ldap.conf \
-    | xargs -I % sed -i -r \
-        -e 's,^[[:space:]]*[#;]+.*$,,g' \
-        -e 's,[[:space:]]+, ,g' \
-        -e '/^[[:space:]]*$/d' \
-        % \
  && ln -s ../conf-available/charset.conf etc/apache2/conf-enabled/charset.conf \
  && ln -s ../conf-available/log-format.conf etc/apache2/conf-enabled/log-format.conf \
  && ln -s ../conf-available/security.conf etc/apache2/conf-enabled/security.conf \
