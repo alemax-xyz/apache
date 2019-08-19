@@ -165,7 +165,7 @@ COPY --from=base /etc/group /etc/gshadow /etc/passwd /etc/shadow etc/
 COPY apache2.conf ports.conf etc/apache2/
 COPY conf-available/ etc/apache2/conf-available/
 COPY sites-available/ etc/apache2/sites-available/
-COPY init.sh etc/
+COPY init/ etc/init/
 
 WORKDIR /
 
@@ -175,7 +175,5 @@ FROM clover/common
 ENV LANG=C.UTF-8
 
 COPY --from=build /rootfs /
-
-CMD ["sh", "/etc/init.sh"]
 
 EXPOSE 80 443
