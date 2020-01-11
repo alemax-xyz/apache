@@ -106,7 +106,7 @@ RUN rm -rf \
         usr/share/doc \
         usr/share/man \
         var/www/html \
- && mkdir -p var/lock/apache2 var/run/apache2 \
+ && mkdir -p var/lock/apache2 run/apache2 \
  && ln -s /dev/stderr var/log/apache2//error.log \
  && ln -s /dev/stdout var/log/apache2/access.log \
  && find \
