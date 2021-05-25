@@ -13,7 +13,7 @@ RUN groupadd \
         --gid 50 \
         www
 
-FROM library/ubuntu:bionic AS build
+FROM library/ubuntu:focal AS build
 
 ENV LANG=C.UTF-8
 
@@ -37,11 +37,11 @@ RUN apt-get download \
         liblua5.1-0 \
         libxml2 \
         libuuid1 \
-        libicu60 \
+        libicu66 \
         liblzma5 \
         libexpat1 \
         libsqlite3-0 \
-        libmysqlclient20 \
+        libmysqlclient21 \
         libodbc1 \
         libpq5 \
         libgnutls30 \
@@ -50,9 +50,9 @@ RUN apt-get download \
         libltdl7 \
         libgssapi-krb5-2 \
         libgmp10 \
-        libhogweed4 \
+        libhogweed5 \
         libidn11 \
-        libnettle6 \
+        libnettle7 \
         libp11-kit0 \
         libtasn1-6 \
         libasn1-8-heimdal \
@@ -65,7 +65,7 @@ RUN apt-get download \
         libk5crypto3 \
         libkrb5-3 \
         libkrb5support0 \
-        libffi6 \
+        libffi7 \
         libwind0-heimdal \
         libheimbase1-heimdal \
         libhx509-5-heimdal \
