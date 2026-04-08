@@ -13,7 +13,7 @@ RUN groupadd \
         --gid 50 \
         www
 
-FROM library/ubuntu:focal AS build
+FROM library/debian:stable-slim AS build
 
 ENV LANG=C.UTF-8
 
@@ -33,15 +33,14 @@ RUN apt-get download \
         libaprutil1-dbd-odbc \
         libaprutil1-dbd-pgsql \
         libaprutil1-ldap \
-        libldap-2.4-2 \
+        libldap-2.5-0 \
         liblua5.1-0 \
         libxml2 \
         libuuid1 \
-        libicu66 \
+        libicu72 \
         liblzma5 \
         libexpat1 \
         libsqlite3-0 \
-        libmysqlclient21 \
         libodbc1 \
         libpq5 \
         libgnutls30 \
@@ -50,26 +49,25 @@ RUN apt-get download \
         libltdl7 \
         libgssapi-krb5-2 \
         libgmp10 \
-        libhogweed5 \
-        libidn11 \
-        libnettle7 \
+        libhogweed6 \
+        libidn12 \
+        libnettle8 \
         libp11-kit0 \
         libtasn1-6 \
         libasn1-8-heimdal \
-        libcomerr2 \
-        libhcrypto4-heimdal \
+        libhcrypto5-heimdal \
         libheimntlm0-heimdal \
         libkrb5-26-heimdal \
-        libroken18-heimdal \
+        libroken19-heimdal \
         libsasl2-modules-db \
         libk5crypto3 \
         libkrb5-3 \
         libkrb5support0 \
-        libffi7 \
         libwind0-heimdal \
         libheimbase1-heimdal \
         libhx509-5-heimdal \
         libkeyutils1 \
+        media-types \
         apache2-bin \
         apache2-data \
         apache2-utils \
@@ -173,6 +171,7 @@ WORKDIR /
 FROM clover/common
 
 ENV LANG=C.UTF-8
+ENV CHOWN="/var/www"
 
 COPY --from=build /rootfs /
 

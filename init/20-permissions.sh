@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chown -R $PUID:$PGID /var/www || exit 2
+[ -n "$CHOWN" ] && chown -Rf $PUID:$PGID $CHOWN
