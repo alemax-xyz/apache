@@ -20,52 +20,48 @@ ENV LANG=C.UTF-8
 RUN export DEBIAN_FRONTEND=noninteractive \
  && apt-get update \
  && apt-get install -y \
-        software-properties-common \
         apt-utils
 
 RUN mkdir -p /build /rootfs
 WORKDIR /build
 RUN apt-get download \
-        libapr1 \
-        libaprutil1 \
+        libapr1t64 \
+        libaprutil1t64 \
         libaprutil1-dbd-sqlite3 \
-        libaprutil1-dbd-mysql \
-        libaprutil1-dbd-odbc \
-        libaprutil1-dbd-pgsql \
         libaprutil1-ldap \
-        libldap-2.5-0 \
-        liblua5.1-0 \
+        libldap2 \
+        liblua5.4-0 \
         libxml2 \
         libuuid1 \
-        libicu72 \
+        libicu76 \
         liblzma5 \
         libexpat1 \
         libsqlite3-0 \
-        libodbc1 \
+        libodbc2 \
         libpq5 \
-        libgnutls30 \
-        libgssapi3-heimdal \
+        libgnutls30t64 \
+        libgssapi3t64-heimdal \
         libsasl2-2 \
         libltdl7 \
         libgssapi-krb5-2 \
         libgmp10 \
-        libhogweed6 \
+        libhogweed6t64 \
         libidn12 \
-        libnettle8 \
+        libnettle8t64 \
         libp11-kit0 \
         libtasn1-6 \
-        libasn1-8-heimdal \
-        libhcrypto5-heimdal \
-        libheimntlm0-heimdal \
-        libkrb5-26-heimdal \
-        libroken19-heimdal \
+        libasn1-8t64-heimdal \
+        libhcrypto5t64-heimdal \
+        libheimntlm0t64-heimdal \
+        libkrb5-26t64-heimdal \
+        libroken19t64-heimdal \
         libsasl2-modules-db \
         libk5crypto3 \
         libkrb5-3 \
         libkrb5support0 \
-        libwind0-heimdal \
-        libheimbase1-heimdal \
-        libhx509-5-heimdal \
+        libwind0t64-heimdal \
+        libheimbase1t64-heimdal \
+        libhx509-5t64-heimdal \
         libkeyutils1 \
         media-types \
         apache2-bin \
@@ -85,7 +81,7 @@ RUN rm -rf \
         etc/init.d \
         etc/logrotate.d \
         etc/ufw \
-        lib/systemd \
+        usr/lib/systemd \
         usr/sbin/a2* \
         usr/sbin/apache2ctl \
         usr/sbin/apachectl \
@@ -101,6 +97,7 @@ RUN rm -rf \
         usr/share/bash-completion \
         usr/share/bug \
         usr/share/lintian \
+        usr/share/locale \
         usr/share/doc \
         usr/share/man \
         var/www/html \
@@ -160,10 +157,7 @@ RUN rm -rf \
  && ln -s ../mods-available/vhost_alias.load etc/apache2/mods-enabled/vhost_alias.load
 
 COPY --from=base /etc/group /etc/gshadow /etc/passwd /etc/shadow etc/
-COPY apache2.conf ports.conf etc/apache2/
-COPY conf-available/ etc/apache2/conf-available/
-COPY sites-available/ etc/apache2/sites-available/
-COPY init/ etc/init/
+COPY etc etc/
 
 WORKDIR /
 
