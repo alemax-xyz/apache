@@ -110,8 +110,8 @@ RUN rm -rf \
         -e 's,[$][{]APACHE_LOCK_DIR[}],/var/lock/apache2,g' \
         -e 's,[$][{]APACHE_RUN_DIR[}],/var/run/apache2,g' \
         -e 's,[$][{]APACHE_LOG_DIR[}],/var/log/apache2,g' \
-        -e 's,[$][{]APACHE_RUN_USER[}],www,g' \
-        -e 's,[$][{]APACHE_RUN_GROUP[}],www,g' \
+        -e 's,[$][{]APACHE_RUN_USER[}],#${PUID},g' \
+        -e 's,[$][{]APACHE_RUN_GROUP[}],#${PGID},g' \
         % \
  && ln -s ../conf-available/charset.conf etc/apache2/conf-enabled/charset.conf \
  && ln -s ../conf-available/log-format.conf etc/apache2/conf-enabled/log-format.conf \
@@ -163,7 +163,6 @@ WORKDIR /
 FROM clover/common
 
 ENV LANG=C.UTF-8
-ENV CHOWN="/var/www"
 
 COPY --from=build /rootfs /
 
