@@ -15,58 +15,32 @@ RUN groupadd \
 
 FROM library/debian:stable-slim AS build
 
-ENV LANG=C.UTF-8
+ENV LANG=C.UTF-8 \
+    SANDBOX_ROOT=/
 
 RUN export DEBIAN_FRONTEND=noninteractive \
- && apt-get update
+ && apt-get update \
+ && apt-get install -y wget openssl ca-certificates
+
+ADD https://github.com/alemax-xyz/misc-tools.git#main /usr/local/bin/
 
 RUN mkdir -p /build /rootfs
+
 WORKDIR /build
-RUN apt-get download \
-        libapr1t64 \
-        libaprutil1t64 \
-        libaprutil1-dbd-sqlite3 \
-        libaprutil1-ldap \
-        libldap2 \
-        liblua5.4-0 \
-        libxml2 \
-        libuuid1 \
-        libicu76 \
-        liblzma5 \
-        libexpat1 \
-        libsqlite3-0 \
-        libodbc2 \
-        libpq5 \
-        libgnutls30t64 \
-        libgssapi3t64-heimdal \
-        libsasl2-2 \
-        libltdl7 \
-        libgssapi-krb5-2 \
-        libgmp10 \
-        libhogweed6t64 \
-        libidn12 \
-        libnettle8t64 \
-        libp11-kit0 \
-        libtasn1-6 \
-        libasn1-8t64-heimdal \
-        libhcrypto5t64-heimdal \
-        libheimntlm0t64-heimdal \
-        libkrb5-26t64-heimdal \
-        libroken19t64-heimdal \
-        libsasl2-modules-db \
-        libk5crypto3 \
-        libkrb5-3 \
-        libkrb5support0 \
-        libwind0t64-heimdal \
-        libheimbase1t64-heimdal \
-        libhx509-5t64-heimdal \
-        libkeyutils1 \
-        media-types \
-        apache2-bin \
-        apache2-data \
-        apache2-utils \
-        apache2
-RUN find *.deb | xargs -I % dpkg-deb -x % /rootfs
+
+COPY build/ .
+
+COPY --from=clover/common:latest /var/lib/packages/ var/lib/packages/
+
+RUN apt-sandbox --install --verstamp \
+        --apt-config \
+            APT::Install-Recommends=false \
+            APT::Get::Upgrade==false \
+        --repository . \
+        --keyring . \
+        --installed var/lib/packages \
+        --obsolete packages.obsolete \
+        --required packages.required
 
 WORKDIR /rootfs
 RUN rm -rf \
@@ -155,7 +129,7 @@ RUN rm -rf \
  && ln -s ../mods-available/vhost_alias.load etc/apache2/mods-enabled/vhost_alias.load
 
 COPY --from=base /etc/group /etc/gshadow /etc/passwd /etc/shadow etc/
-COPY etc etc/
+COPY rootfs/ .
 
 WORKDIR /
 
